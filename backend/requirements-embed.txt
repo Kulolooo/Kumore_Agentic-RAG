@@ -1,0 +1,27 @@
+# -*- coding: utf-8 -*-
+# 本地 embedding（M0-1，可选）。
+#
+# 不装也能跑 BM25：检索层对 torch 做懒加载，只有 mode=vector/hybrid 才需要这些包。
+# 安装：
+#   pip install -r requirements-embed.txt
+#
+# 为什么 CPU 版：8 GB 显存留给将来的 reranker；embedding 在 CPU 上建一次索引即可，
+# 不必为此装 2.5 GB 的 CUDA 版 torch。
+#
+# 默认模型是 bge-visualized-m3（BGE-M3 文本塔 + EVA-CLIP 视觉塔）：
+# - 加载代码已内嵌在 app/embed/visual_bge/，**不需要**另外 pip 安装 visual_bge
+#   （上游没发 PyPI，它的 setup.py 装出来是空 wheel，见该目录 README）；
+# - 单文件视觉权重 Visualized_m3.pth（1.75 GB）按 .env.example 里的 curl 命令下载；
+# - timm / torchvision / einops / ftfy 是内嵌视觉塔的运行时依赖。
+
+--extra-index-url https://download.pytorch.org/whl/cpu
+
+torch>=2.5
+torchvision>=0.20
+sentence-transformers>=3.0
+transformers>=4.40
+# bge-m3 的 XLM-R tokenizer；0.2.0 在 Windows 可导入，0.2.2 曾 access violation。
+sentencepiece==0.2.0
+timm>=1.0
+einops>=0.8
+ftfy>=6.1

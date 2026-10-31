@@ -1,0 +1,38 @@
+库默 Kumore · 可移动客户端
+==========================
+包版本：v0.2
+Electron：33.4.11
+
+一、怎么用
+1. 双击本目录的 Kumore.exe。
+2. 它会用 backend\.venv\Scripts\python.exe 启动本地后端（随机端口），
+   健康检查通过后打开窗口。关闭窗口即连带杀掉后端进程树。
+3. 日志：%APPDATA%\Kumore\logs\desktop.log
+
+二、目录结构
+  Kumore.exe / *.dll / *.pak / locales\    Electron 壳
+  resources\app\                           main.js / preload.js / package.json
+  backend\app\                             后端源码（PROJECT_ROOT）
+  backend\web\dist\                        React 前端构建产物
+  backend\.env                             检索/模型配置 + DEEPSEEK_API_KEY
+  backend\.venv\                           Python 运行时（含本机依赖）
+  backend\storage\kbs\                     知识库注册表与各代索引
+  backend\storage\models\hf\               bge-m3（文本）与 bge-reranker-base（重排，默认关）
+  backend\storage\models\visual\           Visualized_m3.pth（视觉塔）
+  backend\storage\corpora\                 知识库引用的语料副本
+  backend\storage\ui_sessions\             历史会话
+
+三、换语料 / 加知识库
+菜单「文件 → 打开知识库文件夹…」选一个目录，客户端会自动建库并重建索引；
+也可以手工改 backend\storage\kbs\<kb-id>\kb.json 的 corpus_root 后重启。
+默认配置的 KUMORE_CORPUS_ROOT 在 backend\.env 里，当前指向本机课程目录。
+
+四、搬家注意事项
+1. 整个目录可以整体剪切/复制到别的盘，路径不必相同；kb.json 里的
+   corpus_root 是绝对路径，搬家后若指向 storage\corpora 之外的目录，
+   需要手动改回（新建/重建知识库会自动写新路径）。
+2. Python 运行时的 base 指向打包机器上的 Python 3.12（.venv\pyvenv.cfg 的 home）。
+   换一台没有该 Python 的电脑时，需要装同版本 Python 3.12 后重建 venv：
+     <Python 安装目录>\python.exe -m venv .venv
+     .venv\Scripts\python.exe -m pip install -r requirements.txt
+3. 换机时 %APPDATA%\Kumore 里的窗口位置/日志不会跟着走，属于本机状态。

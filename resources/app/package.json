@@ -1,0 +1,14 @@
+{
+  "name": "kumore-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Kumore local knowledge-base desktop shell",
+  "main": "main.js",
+  "author": "Kumore",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^33.2.1"
+  }
+}

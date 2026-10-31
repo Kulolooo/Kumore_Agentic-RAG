@@ -1,0 +1,25 @@
+# 本地密钥与配置（含真实 API Key，绝不提交）
+backend/.env
+
+# 个人知识库、语料、会话与模型（含真实姓名/学号/邮箱，且体积很大）
+backend/storage/
+
+# Python 运行时与缓存
+backend/.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.log
+
+# 桌面可执行文件与 Electron 运行时（单文件超过 GitHub 100 MB 限制）
+Kumore.exe
+*.dll
+*.pak
+*.bin
+*.dat
+locales/
+
+# 系统与编辑器
+Thumbs.db
+desktop.ini
+.DS_Store
